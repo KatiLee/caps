@@ -1,13 +1,16 @@
 'use strict';
 
 const eventPool = require('./eventPool');
-const vendor = require('./vendor');
-const driver = require('./driver');
 
-eventPool.on('event', (event, payload) => {
-    const timeStamp = new Date().toISOString();
-    console.log(`EVENT { event: '${event}', time: ${timestamp} payload: ${JSON.stringify(payload)}}`);
-});
+require('./vendor/index');
+require('./driver/index');
 
-vendor.start();
-driver.start();
+eventPool.on('pickup', (payload) => logger('pickup', payload));
+eventPool.on('in-transit', (payload) => logger('in-transit', payload));
+eventPool.on('delivered', (payload) => logger('delivered', payload));
+
+function logger(event, payload) {
+    const timestamp = new Date();
+    console.log('EVENT: ', { event, timestamp, payload });
+}
+
