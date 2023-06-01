@@ -21,15 +21,15 @@ afterAll(() => {
 });
 
 describe('Testing driver handlers', () => {
-    TextDecoderStream('Should log and emit in-transit after pick up occurs', () => {
+    test('Should log and emit in-transit after pick up occurs', () => {
         let payload = { orderId: 12345 };
         pickupOccurred(payload);
 
-        expect(eventEmitter.emit).toHaveBeenCalledWith('in-transit', payoad);
+        expect(eventEmitter.emit).toHaveBeenCalledWith('in-transit', payload);
         expect(consoleSpy).toHaveBeenCalledWith('DRIVER: picked up', payload.orderId);
     });
 
-    test('should emit delivered and log Driver delivery ', () => {
+    test('should emit delivered and log Driver delivery', () => {
         let payload = { orderId: 12345 };
         packageDelivered(payload);
 

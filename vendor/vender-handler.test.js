@@ -22,7 +22,7 @@ afterAll(() => {
 });
 
 describe('Vendor handlers', () => {
-    TextDecoderStream('Should log correct emit and console log for orderHandler', () => {
+    test('Should log correct emit and console log for orderHandler', () => {
         let payload = {
             orderId: 12345,
         };
@@ -32,7 +32,7 @@ describe('Vendor handlers', () => {
         expect(eventEmitter.emit).toHaveBeenCalledWith('pickup', payload);
     });
 
-    TextDecoderStream('Should log correct emit and console log for thankDriver', () => {
+    test('Should log correct emit and console log for thankDriver', () => {
         let payload = {
             customer: 'Test Test',
         };

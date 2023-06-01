@@ -14,7 +14,7 @@ const orderHandler = (payload=null) => {
             address: chance.address(),
         };
     }
-    console.log('VENDOR: ORDER ready for pickup: ', payload);
+    console.log('VENDOR: ORDER ready for pickup:', payload);
     eventEmitter.emit('pickup', payload);
 };
 
