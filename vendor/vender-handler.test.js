@@ -1,14 +1,18 @@
 'use strict';
 
-let eventEmitter = require('../eventPool');
+const { io } = require('socket.io-client');
+const socket = io('http://localhost:3001/caps');
 
 const { orderHandler, thankDriver } = require('./handler');
 
-jest.mock('../eventPool.js', () => {
+jest.mock('socket.io-client', () => {
+    const emit = jest.fn();
     return {
-        on: jest.fn(),
-        emit: jest.fn(),
+        io: jest.fn().mockReturnValue({
+            emit,
+        }),
     };
+
 });
 
 let consoleSpy;
@@ -28,11 +32,10 @@ describe('Vendor handlers', () => {
         };
 
         orderHandler(payload);
-        expect(consoleSpy).toHaveBeenCalledWith('VENDOR: ORDER ready for pickup:', payload);
-        expect(eventEmitter.emit).toHaveBeenCalledWith('pickup', payload);
+        expect(socket.emit).toHaveBeenCalledWith('pickup', payload);
     });
 
-    test('Should log correct emit and console log for thankDriver', () => {
+    test('Should log correct emit and console log for deliveredMessage', () => {
         let payload = {
             customer: 'Test Test',
         };
