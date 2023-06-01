@@ -1,6 +1,10 @@
 'use strict';
 
-const eventEmitter = require('../eventPool');
-const { handlePickupAndDelivery } = require('./handler');
+const { io } = require('socket.io-client');
+const socket = io('http://localhost:3001/caps');
+const { handlePickupAndDelivered } = require('./handler');
 
-eventEmitter.on('pickup', handlePickupAndDelivery);
+socket.on('pickup', handlePickupAndDelivered);
+
+let store = '1-206-flowers';
+socket.emit('JOIN', store);
