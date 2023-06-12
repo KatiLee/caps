@@ -6,9 +6,11 @@ const { pickupOccurred, packageDelivered } = require('./handler');
 
 jest.mock('socket.io-client', () => {
     const emit = jest.fn();
+    const on = jest.fn();
     return {
         io: jest.fn().mockReturnValue({
             emit,
+            on,
         }),
     };
 });
@@ -16,7 +18,7 @@ jest.mock('socket.io-client', () => {
 let consoleSpy;
 
 beforeAll(() => {
-    consoleSpy.mockRestore();
+    consoleSpy = jest.spyOn(console, 'log').mockImplemetation();
 });
 
 afterAll(() => {

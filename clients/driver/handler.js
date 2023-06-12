@@ -13,13 +13,4 @@ const packageDelivered = (payload) => {
     socket.emit('delivered', payload);
 };
 
-const handlePickupAndDelivery = (payload) => {
-    setTimeout(() => {
-        pickupOccurred(payload);
-    }, 1000);
-    setTimeout(() => {
-        packageDelivered(payload);
-    }, 2000);
-};
-
-module.exports = { pickupOccurred, packageDelivered, handlePickupAndDelivery };
+module.exports = { pickupOccurred, packageDelivered };

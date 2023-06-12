@@ -3,7 +3,7 @@
 const eventPool = require('./eventPool');
 
 require('./vendor/index');
-require('./driver/index');
+require('./clients/driver/index');
 
 eventPool.on('pickup', (payload) => logger('pickup', payload));
 eventPool.on('in-transit', (payload) => logger('in-transit', payload));
